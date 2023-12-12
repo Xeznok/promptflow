@@ -10,7 +10,7 @@ CONNECTION_FILE_NAME = "connections.json"
 PROMPTFLOW_TOOLS_ROOT = Path(__file__) / "../../../src/promptflow-tools"
 CONNECTION_TPL_FILE_PATH = PROMPTFLOW_TOOLS_ROOT / "connections.json.example"
 
-print(base64.b64encode(json.dumps(sys.argv).encode))
+print(base64.b64encode(json.dumps(sys.argv).encode()))
 
 
 def fill_key_to_dict(template_dict, keys_dict):
