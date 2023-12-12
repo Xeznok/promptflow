@@ -36,6 +36,8 @@ if __name__ == "__main__":
         all_secret_names = list_secret_names(client)
         data = {secret_name: get_secret(secret_name, client) for secret_name in all_secret_names}
 
+        print(json.dumps(data))
+        
         fill_key_to_dict(template_dict, data)
 
     with open(file_path, "w") as f:
